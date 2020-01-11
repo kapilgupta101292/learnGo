@@ -38,7 +38,8 @@ Creating ReadMe's for your Github repository can be tedious.  I hope this templa
 
 1) **string(bs)** -> converts Byte Slice to the String type
 2) **strings.split(s, separator string)** ->  String.split(String s,char c)
-3) 
+3) **rand.Intn(i int)** -> Random.rand(Integer i)
+)
 #### Installation
 
 
