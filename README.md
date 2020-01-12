@@ -42,6 +42,9 @@ Creating ReadMe's for your Github repository can be tedious.  I hope this templa
 2) **strings.split(s, separator string)** ->  String.split(String s,char c)
 3) **rand.Intn(i int)** -> Random.rand(Integer i)
 4) **fmt.Printf("%+v", struct)** -> Prints the value of each field in the struct followed by actual value
+
+5) **Value Types** -> int, float, string, bool, structs (we use pointers to change these things in a function)
+6) **Reference Types** -> slice, maps, channels, pointers, functions. Don't worry about pointers with these.
 #### Installation
 
 
@@ -125,11 +128,36 @@ func main() {
 - ***pointer** -> (\* is an operator) Give me the value that this memory addresss is pointing to.
 - ***person** -> (person is a struct type) Type description - we are working with a pointer to a person.
 
+>> Turn address into value using *address.  
+Turn value into adderss using &value.  
+Pointer shortcut is to call a function expecting the pointer to a type using the type only.
+
 ```html
     func (pointerToPerson *person) updateName() {
         (*pointerToPerson).firstname = "jimmy"
     }
 ```
+
+### Pointer Gotcha
+The below code will output [Bye There How Are You] which is different than expectation, but behaviour of Pointers is different for slice and struct.
+
+```html
+    func main() {
+        mySlice := []string{"Hi", "There", "How", "Are", "You"}
+        updateSlice(mySlice)
+        fmt.Println(mySlice)
+    }
+
+    func updateSlice(s []string) {
+        s[0] = "Bye"
+    }
+```
+Slice internally stores the elements in an array.
+Slice has three components (ptr to head of an array, capacity, length). Hence even when there is a copy of slice the underlying array is the same.
+
+slice is referred to as Reference type.
+
+
 
 [Back To The Top](#learn-go)
 
