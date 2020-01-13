@@ -15,6 +15,8 @@ You're sections headers will be used to reference location of destination.
 - [Error Handling](#error-handling)
 - [Struct in Go](#struct-in-go)
 - [Pointers in Go](#pointers-in-go)
+- [Interface in Go](#interface-in-go)
+- [Go Routines](#go-routiens)
 - [References](#references)
 - [License](#license)
 - [Author Info](#author-info)
@@ -45,6 +47,8 @@ Creating ReadMe's for your Github repository can be tedious.  I hope this templa
 
 5) **Value Types** -> int, float, string, bool, structs (we use pointers to change these things in a function)
 6) **Reference Types** -> slice, maps, channels, pointers, functions. Don't worry about pointers with these.
+7) **Make Function** -> bs = make([] byte, 9999) - makes a byte slice with 9999 elements in it.
+8) **io.Copy** -> io.Copy(os.Stdout, resp.Body) 
 #### Installation
 
 
@@ -163,6 +167,72 @@ slice is referred to as Reference type.
 
 ---
 
+## Map in Go  
+
+Map stores key, value pairs, all keys and all values should be of same type respectively
+
+[Back To The Top](#learn-go)
+
+---
+
+## Interface in Go  
+Declaring an interface type in a file, says our program has a new type called bot
+
+```html
+    type bot interface {
+	getGreeting() string
+}
+type englishBot struct{}
+type spanishBot struct{}
+
+func main() {
+	eb := englishBot{}
+	sb := spanishBot{}
+
+	printGreeting(eb)
+	printGreeting(sb)
+}
+
+func printGreeting(b bot) {
+	fmt.Println(b.getGreeting())
+}
+func (englishBot) getGreeting() string {
+	return "Hi There!"
+}
+
+func (spanishBot) getGreeting() string {
+	return "Hola!"
+}
+
+```
+If you are a type in this program with a function called 'getGreeting' and you return a string then you are a member of type 'bot'
+
+Now that you are an honorary member of type 'bot' you can now call this function called printGreeting()
+
+- Interfaces are not generic types and Go does not have support for the same.
+- Interfaces are **implicit**, as in java we don't manually have to say that our custom type satisfies some interface
+- Interfaces are a contract to help us manage types. if our custom type implementation is broken interfaces won't help.
+- Interfaces are tough. Step #1 is understanding to read them. Writing our own interfaces is tough and requires experience.
+- We can take different interfaces and combine them together to form a new interface.
+
+```html
+    type ReadCloser interface {
+        Reader 
+        Closer
+    }
+
+    type Reader interface {
+        read([]byte) (int, error)
+    }
+
+```
+
+[Back To The Top](#learn-go)
+
+---
+## Go Routines
+1) Our running program (a process) 
+--
 ## Author Info
 
 - Github - [Kapil Gupta](https://github.com/kapilgupta101292)
